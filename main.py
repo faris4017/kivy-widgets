@@ -1,5 +1,6 @@
 # Core imports from kivy 
 from cgitb import text
+from unicodedata import name
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.core.window import Window
@@ -11,6 +12,10 @@ from kivy.utils import get_color_from_hex
 from kivy.uix.boxlayout import BoxLayout
 
 
+# views import
+from view.home.home_page import HomePage
+
+
 # ScreenManager Handler classes
 from kivy.uix.screenmanager import (
     Screen,
@@ -18,9 +23,6 @@ from kivy.uix.screenmanager import (
 )
 
 
-
-class HomePage(Screen):
-    pass
 
 
 class WindowManager(ScreenManager):
@@ -33,14 +35,20 @@ class Main(App):
         Window.custom_titlebar = 1
 
 
-        data = Window.set_custom_titlebar(Button(text="Set Custom Titlebar"))
 
-        print('Title status ',data)
+        self.sm = ScreenManager()
+        self.sm.add_widget(HomePage())
 
 
 
-        kv = Builder.load_file("main.kv")
+        # data = Window.set_custom_titlebar(Button(text="Set Custom Titlebar"))
 
+        # print('Title status ',data)
+
+
+
+        # kv = Builder.load_file("main.kv")
+        return self.sm
 
 if __name__ == '__main__':
     Main().run()
